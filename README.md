@@ -28,14 +28,14 @@ Checkout --> Auth (IAM Roles Anywhere) --> Init --> Validate --> Plan --> [Appro
 .
 |-- Jenkinsfile                  # Main pipeline definition
 |-- modules/
-|   |-- vpc/                     # VPC module (10.10.0.0/16, 10.20.0.0/16)
+|   |-- vpc/                     # VPC module (<vpc-cidr-1>, <vpc-cidr-2>)
 |   |-- security-groups/
 |   |-- s3/
 |   `-- iam/
 |-- environments/
 |   |-- dev/
 |   `-- prod/
-`-- backend.tf                   # S3 backend config (Pick a unique name)
+`-- backend.tf                   # S3 backend config (<terraform-state-bucket>)
 ```
 
 ## Backend Configuration
@@ -43,10 +43,10 @@ Checkout --> Auth (IAM Roles Anywhere) --> Init --> Validate --> Plan --> [Appro
 ```hcl
 terraform {
   backend "s3" {
-    bucket         = "Pick a unique name"
+    bucket         = "<terraform-state-bucket>"
     key            = "pipeline/terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "Pick a Name"
+    dynamodb_table = "<terraform-lock-table>"
     encrypt        = true
   }
 }
@@ -64,10 +64,10 @@ for full setup. No IAM user keys. No credentials stored in Jenkins.
 |---|---|
 | Account | Your-Account|
 | Region | us-east-1 |
-| VPC CIDR 1 | 10.10.0.0/16 |
-| VPC CIDR 2 | 10.20.0.0/16 |
-| State Bucket | Your Bucket for storing the tstate |
-| IAM Role | JenkinsLabRole |
+| VPC CIDR 1 | <vpc-cidr-1> |
+| VPC CIDR 2 | <vpc-cidr-2> |
+| State Bucket | <terraform-state-bucket> |
+| IAM Role | <ci-role-name> |
 
 ## Exam Relevance
 
