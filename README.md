@@ -35,7 +35,7 @@ Checkout --> Auth (IAM Roles Anywhere) --> Init --> Validate --> Plan --> [Appro
 |-- environments/
 |   |-- dev/
 |   `-- prod/
-`-- backend.tf                   # S3 backend config (dla-tstate)
+`-- backend.tf                   # S3 backend config (Pick a unique name)
 ```
 
 ## Backend Configuration
@@ -43,10 +43,10 @@ Checkout --> Auth (IAM Roles Anywhere) --> Init --> Validate --> Plan --> [Appro
 ```hcl
 terraform {
   backend "s3" {
-    bucket         = "dla-tstate"
+    bucket         = "Pick a unique name"
     key            = "pipeline/terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "dla-tstate-lock"
+    dynamodb_table = "Pick a Name"
     encrypt        = true
   }
 }
@@ -62,11 +62,11 @@ for full setup. No IAM user keys. No credentials stored in Jenkins.
 
 | Setting | Value |
 |---|---|
-| Account | 640168421612 |
+| Account | Your-Account|
 | Region | us-east-1 |
 | VPC CIDR 1 | 10.10.0.0/16 |
 | VPC CIDR 2 | 10.20.0.0/16 |
-| State Bucket | dla-tstate |
+| State Bucket | Your Bucket for storing the tstate |
 | IAM Role | JenkinsLabRole |
 
 ## Exam Relevance
@@ -81,7 +81,7 @@ for full setup. No IAM user keys. No credentials stored in Jenkins.
 
 - Jenkins instance with IAM Roles Anywhere configured
 - AWS CLI and Terraform installed in Jenkins agent
-- `dla-tstate` S3 bucket and DynamoDB lock table provisioned
+- `Your Bucket for storing the tstate` S3 bucket and DynamoDB lock table provisioned
 - See [jenkins-iam-roles-anywhere](https://github.com/arieldla/jenkins-iam-roles-anywhere)
 
 ## Related Repos
